@@ -30,15 +30,15 @@ jobs:
           cd ~/rpmbuild/SOURCES/
           wget https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem/archive/main.zip
           unzip main.zip
-          mv laba_os_romanchuk_artem-main laba_os_romanchuk_artem
-          cp ~/rpmbuild/SOURCES/laba_os_romanchuk_artem/rpm/calcfiles.spec ~/rpmbuild/SPECS/
+          cp laba_os_romanchuk_artem-main/rpm/calcfiles.spec ~/rpmbuild/SPECS/
 
       - name: Build RPM
         run: |
-          cd ~/rpmbuild
-          rpmbuild -bs --define "dist .generic" SPECS/calcfiles.spec
-          rpmbuild --rebuild SRPMS/calcfiles-1.0-1.generic.src.rpm
-          
+          cd ~/rpmbuild/SOURCES/laba_os_romanchuk_artem-main
+          rpmbuild -bs --define "dist .generic" rpm/calcfiles.spec
+          cp ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm ~/rpmbuild/SRPMS/
+          rpmbuild --rebuild ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm
+
       - name: Upload RPM
         uses: actions/upload-artifact@v2
         with:
