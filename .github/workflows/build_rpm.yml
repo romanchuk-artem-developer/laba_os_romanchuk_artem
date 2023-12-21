@@ -33,11 +33,14 @@ jobs:
           cp laba_os_romanchuk_artem-main/rpm/calcfiles.spec ~/rpmbuild/SPECS/
 
       - name: Build RPM
-        run: |
-          cd ~/rpmbuild/SOURCES/laba_os_romanchuk_artem-main
-          rpmbuild -bs --define "dist .generic" rpm/calcfiles.spec
-          cp ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm ~/rpmbuild/SRPMS/
-          rpmbuild --rebuild ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm
+  run: |
+    cd ~/rpmbuild/SOURCES/laba_os_romanchuk_artem-main
+    rpmbuild -bs --define "dist .generic" rpm/calcfiles.spec
+    if [ ! -f ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm ]; then
+      cp ~/rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm ~/rpmbuild/SRPMS/calcfiles-1.0-1-generic.src.rpm
+    fi
+    rpmbuild --rebuild ~/rpmbuild/SRPMS/calcfiles-1.0-1-generic.src.rpm
+
 
       - name: Upload RPM
         uses: actions/upload-artifact@v2
