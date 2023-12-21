@@ -6,7 +6,7 @@ Requires:       unzip
 
 License:        MIT
 URL:            https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem
-Source0:        https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem/archive/main.zip
+Source0:        main.zip
 
 BuildArch:      noarch
 
@@ -14,12 +14,11 @@ BuildArch:      noarch
 calc_files.sh is a simple script that calculates the number of files in a directory.
 
 %prep
-unzip %SOURCE0
-cd laba_os_romanchuk_artem/
+%setup -q -n laba_os_romanchuk_artem-main
 
 %install
 mkdir -p %{buildroot}/usr/bin
-install -m 755 %{_builddir}/laba_os_romanchuk_artem/calc_files.sh %{buildroot}/usr/bin/calc_files
+install -m 755 calc_files.sh %{buildroot}/usr/bin/calc_files
 
 %files
 /usr/bin/calc_files
