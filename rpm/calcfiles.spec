@@ -6,7 +6,7 @@ Requires:       unzip
 
 License:        MIT
 URL:            https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem
-Source0:        main.zip
+Source0:       https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem/archive/main.zip
 
 BuildArch:      noarch
 
