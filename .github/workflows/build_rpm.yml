@@ -25,14 +25,19 @@ jobs:
           yum install -y rpm-build rpmdevtools wget unzip
           rpmdev-setuptree
 
-      - name: Build RPM
+      - name: Prepare RPM sources
         run: |
-          cp rpm/calcfiles.spec ~/rpmbuild/SPECS/
           cd ~/rpmbuild/SOURCES/
           wget https://github.com/romanchuk-artem-developer/laba_os_romanchuk_artem/archive/main.zip
-          cd ../../
-          rpmbuild -bs --define "dist .generic" rpmbuild/SPECS/calcfiles.spec
-          rpmbuild --rebuild rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm
+          unzip main.zip
+          mv laba_os_romanchuk_artem-main laba_os_romanchuk_artem
+          cp ~/rpmbuild/SOURCES/laba_os_romanchuk_artem/rpm/calcfiles.spec ~/rpmbuild/SPECS/
+
+      - name: Build RPM
+        run: |
+          cd ~/rpmbuild
+          rpmbuild -bs --define "dist .generic" SPECS/calcfiles.spec
+          rpmbuild --rebuild SRPMS/calcfiles-1.0-1.generic.src.rpm
           
       - name: Upload RPM
         uses: actions/upload-artifact@v2
